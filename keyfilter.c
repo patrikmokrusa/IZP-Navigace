@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int countarr(char ar[42][100]){     //funkce pro ziskani poctu "adres" z pole
     int x=0;
@@ -17,11 +18,20 @@ int countarr(char ar[42][100]){     //funkce pro ziskani poctu "adres" z pole
 }
 
 
-int main()
+int main(int argc,char *argv[])
 {
-
-  int len = countarr;
- 
   
+  
+
+
+  char txt_file[42][100]= {"Praha","Brno","Bruntal","Bratislava"};
+  int argcount = (strlen(argv[1]));
+
+  printf("%d\n",argcount);
+
+  int len = countarr(txt_file);
+
+
+
   return EXIT_SUCCESS;
 }
