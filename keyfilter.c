@@ -1,3 +1,5 @@
+// Patrik Mokruša
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -19,30 +21,37 @@ int countarr(char ar[42][100]){     //funkce pro ziskani poctu "adres" z pole
 
 int main(int argc,char *argv[])
 {
+  if (argc ==1){
+    printf("nezadany parametr");
+    return 1;
+  }
   // char *arg = NULL;
   // strcpy(arg, argv[1];
 
 
-  char txt_file[42][100];   
-  scanf("%s\n",&txt_file[0]);
-  scanf("%s\n",&txt_file[1]);     //nacist <adresy.txt
+  char txt_file[42][100];
 
-  printf("%s\n",txt_file[0]);
-  printf("%s\n",txt_file[1]);
+  for (int i =0; i < 42; i++){     //nacist <adresy.txt
+    
+    if (scanf("%s\n",txt_file[i]) == EOF){
+      break;
+    }
+    printf("%s\n",txt_file[i]);
 
-
-
-  char txt_file1[42][100]= {"Praha","Brno","Bruntal","Bratislava"};
-  int argcount = strlen(argv[1]);
-
-  printf("%d\n",argcount);
-
-  int len = countarr(txt_file1);
-
-  if (argc == 1){                                  //pokud nezadam parametr
-    printf("nezadany parametr");
-    return 1;
   }
+  // printf("%c\n",txt_file[0][0]);
+  printf("%s\n",txt_file[4]);
+
+
+  // char txt_file1[42][100]= {"Praha","Brno","Bruntal","Bratislava"};
+  
+  size_t argcount = strlen(argv[1]);
+  // printf("%d\n",argcount);
+
+  int len = countarr(txt_file);
+
+
+
 
 
 
