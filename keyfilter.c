@@ -49,6 +49,7 @@ int main(int argc,char *argv[])
   // printf("%d\n",argcount);
 
   int len = countarr(txt_file);
+  printf("%d\n",len);
 
 
 
