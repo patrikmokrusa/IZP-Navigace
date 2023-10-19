@@ -1,2 +1,3 @@
 main: keyfilter.c
-	gcc keyfilter.c -o keyfilter -std=c99 -Wall -Wextra -Werror
+	gcc keyfilter.c -o keyfilter -std=c11 -Wall -Wextra -Werror
+
