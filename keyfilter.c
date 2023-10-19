@@ -1,4 +1,4 @@
-// Patrik Mokruša
+// Patrik Mokruša 19.10.2003
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,21 +6,51 @@
 #include <ctype.h>
 #include <stdbool.h>
 
+void sort(int arr[], int x)
+{
+  int temp;
+  for (int i = 0; i < x - 1; i++)
+  {
+    for (int j = 0; j < x - i - 1; j++)
+    {
+      if (arr[j] > arr[j + 1])
+      {
+        temp = arr[j];
+        arr[j] = arr[j+1];
+        arr[j+1] = temp;
+      }
+    }
+  }
+}
 
+void dedouble(int arr[], int x)
+{
+  int temp[x];
+  int j = 0;
+  for (int i = 0; i < x; i++)
+  {
+    if (arr[i] != arr[i+1]){
+      temp[j++] = arr[i];
+    }
+  }
+  for (int i = 0; i < x; i++)
+  {
+    if(i < j){
+    arr[i] = temp[i];
+    }
+    else{
+      arr[i] = '\0';
+    }
+  }
+}
 
 int main(int argc,char *argv[])
 {
-  if (argc <2){                           //if no parameter
-    printf("No parameter\n");
-    return 1;
-  }
-
-
   char txt_file[42][101];                 //declare list 42 lines, max 100 chars per line (+ '\0')
   int len = 0;
 
-  for (int i =0; i < 42; i++){                //input stdin
-    
+  for (int i =0; i < 42; i++)         //input stdin (<adresy.txt)
+  {                
     if (scanf("%s\n",txt_file[i]) == EOF){             //if EOF stop inputting
       break;
     }
@@ -28,18 +58,45 @@ int main(int argc,char *argv[])
   }
 
   
-  for (int i = 0; i <len; i++){                         //convert list to uppercase
+  for (int i = 0; i <len; i++)    //convert list to uppercase
+  {                         
     for (size_t y =0; y < strlen(txt_file[i]); y++)
     {
       txt_file[i][y]= toupper(txt_file[i][y]);
     }
   }
+
+  if (argc <2)                              //if no parameter
+  {
+    int sorted[len];                                                          
+    for (int i = 0; i < len; i++)
+    {
+      sorted[i]=txt_file[i][0];
+    }
+    
+    sort(sorted,len);
+    dedouble(sorted,len);
+    printf("Enable: ");
+    
+    int i = 0;
+    while (sorted[i] != '\0')
+    {
+      printf("%c",sorted[i]);
+      i++;
+    }
+    printf("\n");
+    return 0;
+  }
   
   size_t len_arg = strlen(argv[1]);             //convert argument to uppercase
+  
   for (size_t i = 0; i < len_arg ; i++)
   {
     argv[1][i]= toupper(argv[1][i]);
   }
+
+  
+  
 
 
   char *filtered[42];
@@ -56,7 +113,8 @@ int main(int argc,char *argv[])
         num++;
       }
     }
-    if (num == len_arg){
+    if (num == len_arg)
+    {
       filtered[len_filter] = txt_file[i];
       len_filter++;
       count++;
@@ -65,7 +123,9 @@ int main(int argc,char *argv[])
   }
 
   
-  int found = false;
+  bool found = false;
+  int sorted[len_filter];
+
   if (found == false)                         //check if full argument in filtered
   {
       for (int i = 0; i < len_filter; i++)
@@ -77,24 +137,28 @@ int main(int argc,char *argv[])
       }
     }
   }
+
   if (len_filter == 0)                 //if nouting filtered
   {
     printf("Not Found");  
   }
   else if(found == false)              //print the next char after argument
   {
-    printf("Enable: ");                    
+    printf("Enable: ");                  
     for (int i = 0; i < count; i++)
     {
-      printf("%c",filtered[i][len_arg]);
+      sorted[i]=filtered[i][len_arg];
     }  
+    sort(sorted, count);
+    dedouble(sorted, count);
+
+    
+    for (int i=0; i<count; i++)
+    {
+      printf("%c",sorted[i]);
+    }
   }
   
-
-  // printf("%d\n",len_arg);
-  // printf("\nargumenty %s\n",argv[1]);
-  // printf("\nPocet mest: %d\n",len);
-  // printf("%c\n",*filtered[1]);
   printf("\n");
   return 0;
 }
